@@ -1,13 +1,12 @@
-" VUNDLE
 set nocompatible              " be iMproved, required
 filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/vimfiles/bundle/Vundle.vim
+
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'leafOfTree/vim-vue-plugin'
-call vundle#end()
-filetype plugin indent on
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " Custom configs
 set number
@@ -23,11 +22,12 @@ set relativenumber
 set laststatus=2
 set noshowmode
 syntax on
-
+set shell=/bin/bash
 " Plugins
 call plug#begin('~/vimfiles/plugin')
 " Themes
 Plug 'morhetz/gruvbox'
+Plug 'phanviet/vim-monokai-pro'
 " IDE
 " 	Autocomplanion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -54,12 +54,16 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'terryma/vim-multiple-cursors'
 "	Prietter
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" emmet
+Plug 'mattn/emmet-vim'
 call plug#end()
 " Thmes
-colorscheme gruvbox
+" colorscheme gruvbox
 " colorscheme morning
 " colorscheme sublimemonokai
 " colorscheme minimalis
+set termguicolors
+colorscheme monokai_pro
 " Leader
 let mapleader=" "
 "------------- Easymotion -----------------
@@ -73,6 +77,7 @@ nmap <Leader>nt :NERDTreeFind<CR>
 "	Show hidden files
 let NERDTreeShowHidden=1
 "------------- Prettier -----------------
+set tabstop=2
 let g:prettier#config#tab_width=2
 let g:prettier#config#use_tabs='false'
 "------------- Vue config ------------------
