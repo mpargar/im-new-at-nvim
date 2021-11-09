@@ -1,6 +1,8 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" ====================== PLUGINS ======================
+" ------> Vundle
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
@@ -9,27 +11,11 @@ Plugin 'udalov/kotlin-vim'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" Custom configs
-set number
-set mouse=a
-set numberwidth=1
-set clipboard=unnamed
-set showcmd
-set ruler
-set encoding=utf-8
-set showmatch
-set sw=2
-set relativenumber
-set laststatus=2
-set noshowmode
-syntax on
-set shell=/bin/bash
-set backspace=indent,eol,start
-" Plugins
+" ------> Plug
 call plug#begin('~/vimfiles/plugin')
 " Themes
 Plug 'morhetz/gruvbox'
-Plug 'phanviet/vim-monokai-pro'
+" Plug 'phanviet/vim-monokai-pro'
 " IDE
 " 	Autocomplanion
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -56,48 +42,69 @@ Plug 'KabbAmine/vCoolor.vim'
 Plug 'terryma/vim-multiple-cursors'
 "	Prietter
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-" emmet
+" emmt
 Plug 'mattn/emmet-vim'
 " RipGrep https://github.com/mhinz/vim-grepper
 Plug 'mhinz/vim-grepper'
 " fzf https://github.com/junegunn/fzf.vim
 " https://github.com/junegunn/fzf#installation
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 call plug#end()
-" Thmes
-" colorscheme gruvbox
+
+" ====================== Custom configs ======================
+
+" ------> Variables
+let mapleader=" "
+
+" ------> Editor configs
+set number
+set mouse=a
+set numberwidth=1
+set clipboard=unnamed
+set showcmd
+set ruler
+set encoding=utf-8
+set showmatch
+set sw=2
+set relativenumber
+set laststatus=2
+set noshowmode
+syntax on
+set shell=/bin/bash
+set backspace=indent,eol,start
+
+" ------> Themes
+colorscheme gruvbox
 " colorscheme morning
 " colorscheme sublimemonokai
 " colorscheme minimalis
 set termguicolors
-colorscheme monokai_pro
-" Leader
-let mapleader=" "
-"------------- Easymotion -----------------
+" colorscheme monokai_pro
+
+" ------> Shortcus & plugin configs
+" ---> Easymotion
 nmap <Leader>s <Plug>(easymotion-s2)
-"------------- Nerd tree -----------------
-"	Relative number
+
+" ---> Nerd tree 
 let NERDTreeShowLineNumbers=1
 autocmd FileType nerdtree setlocal relativenumber
-"	Shortcut
 nmap <Leader>nt :NERDTreeFind<CR>
-"	Show hidden files
 let NERDTreeShowHidden=1
-"------------- Prettier -----------------
+
+" ---> Prettier 
 set tabstop=2
 let g:prettier#config#tab_width=2
 let g:prettier#config#use_tabs='false'
-"------------- Vue config ------------------
+
+" ---> Vue config 
 let g:vue_pre_processors = ['pug', 'scss']
 let g:vue_pre_processors = 'detect_on_enter'
-"------------- Custom shortcuts -----------------
+
+" ---> Editor shortcuts
 nmap <Leader>w :w<CR>
 nmap <Leader>pr <Plug>(Prettier)
 nmap <Leader>q :q<CR>
-nmap <silent> <leader>gd <Plug>(coc-definition)
-nmap <silent> <leader>gr <Plug>(coc-references)
-nmap <silent> <leader>gi <Plug>(coc-implementation)
 " Press * to search for the term under the cursor or a visual selection and
 " then press a key below to replace all instances of it in the current file.
 nnoremap <Leader>r :%s///g<Left><Left>
@@ -115,12 +122,14 @@ xnoremap <Leader>rc :s///gc<Left><Left><Left>
 nnoremap <silent> s* :let @/='\<'.expand('<cword>').'\>'<CR>cgn
 xnoremap <silent> s* "sy:let @/=@s<CR>cgn
 
-" .............................................................................
+" ---> COC
+nmap <silent> <leader>gd <Plug>(coc-definition)
+nmap <silent> <leader>gr <Plug>(coc-references)
+nmap <silent> <leader>gi <Plug>(coc-implementation)
+
+" ---> Fuzy Finder
 " junegunn/fzf.vim
-" .............................................................................
-
 let $FZF_DEFAULT_OPTS = '--bind ctrl-a:select-all'
-
 " Customize fzf colors to match your color scheme.
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -135,20 +144,18 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-b': 'split',
   \ 'ctrl-v': 'vsplit',
   \ 'ctrl-y': {lines -> setreg('*', join(lines, "\n"))}}
-
 " Launch fzf with CTRL+P.
 nnoremap <silent> <C-p> :FZF -m<CR>
-
 " Map a few common things to do with FZF.
 nnoremap <silent> <Leader><Enter> :Buffers<CR>
 nnoremap <silent> <Leader>l :Lines<CR>
 
+" ---> Rip Grep
 " Allow passing optional flags into the Rg command.
 "   Example: :Rg myterm -g '*.md'
 " command! -bang -nargs=* Rg
@@ -159,4 +166,4 @@ nnoremap <silent> <Leader>l :Lines<CR>
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg -g '!design/' -g '!dist/' -g '!pnpm-lock.yaml' -g '!.git' -g '!node_modules' --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview({'options': '--exact --delimiter : --nth 4..'}), <bang>0)
+  \   fzf#vim#with_preview({'options': '--exact --delimiter : --nth 4..'}), <bang>0) 
