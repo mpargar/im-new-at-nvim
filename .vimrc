@@ -110,6 +110,7 @@ nmap <Leader>s <Plug>(easymotion-s2)
 nmap <silent> <leader>gd <Plug>(coc-definition)
 nmap <silent> <leader>gr <Plug>(coc-references)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
+nmap <silent> <leader>rr <Plug>(coc-rename)
 inoremap <silent><expr> <C-x> coc#refresh()
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
