@@ -25,6 +25,7 @@ call plug#begin("~/.vim/plugged")
   "	Tmux navigator
   Plug 'christoomey/vim-tmux-navigator'
   " Copilot chat
+  Plug 'github/copilot.vim'
   Plug 'zbirenbaum/copilot.lua'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
