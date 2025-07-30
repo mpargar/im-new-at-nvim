@@ -90,6 +90,7 @@ let NERDTreeShowLineNumbers=1
 autocmd FileType nerdtree setlocal relativenumber
 nmap <Leader>nt :NERDTreeFind<CR>
 let NERDTreeShowHidden=1
+let NERDTreeQuitOnOpen=1
 
 " ------> Themes
 colorscheme gruvbox
@@ -158,10 +159,14 @@ nnoremap <silent> <Leader>l :Lines<CR>
 "  \ <q-args>, 1, fzf#vim#with_preview(), <bang>0)
 
 " ---> Copilot
+" Esto evita que Copilot interfiera con <Tab> y asigna Alt + ] para aceptar sugerencias.
+" let g:copilot_no_tab_map = v:true
+" imap <silent><script><expr> <M-]> copilot#Accept("\<CR>")
 "  Copilot Chat
 lua << EOF
-require("CopilotChat").setup {
+require("CopilotChat").setup ({
   debug = true, -- Enable debugging
   -- See Configuration section for rest
-}
+})
 EOF
+
