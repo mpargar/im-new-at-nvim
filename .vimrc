@@ -25,10 +25,10 @@ call plug#begin("~/.vim/plugged")
   "	Tmux navigator
   Plug 'christoomey/vim-tmux-navigator'
   " Copilot chat
-  Plug 'github/copilot.vim'
+  "Plug 'github/copilot.vim'
   Plug 'zbirenbaum/copilot.lua'
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'canary' }
+  Plug 'CopilotC-Nvim/CopilotChat.nvim', { 'branch': 'main' }
 call plug#end()
 
 " ------> Variables
@@ -109,6 +109,9 @@ nmap <Leader>s <Plug>(easymotion-s2)
 
 " ---> COC
 nmap <silent> <leader>gd <Plug>(coc-definition)
+nnoremap <silent> <leader>gdt :call CocAction('jumpDefinition')<CR>:tab split<CR>
+nnoremap <silent> <leader>gds :call CocAction('jumpDefinition')<CR>:split<CR>
+nnoremap <silent> <leader>gdv :call CocAction('jumpDefinition')<CR>:vsplit<CR>
 nmap <silent> <leader>gr <Plug>(coc-references)
 nmap <silent> <leader>gi <Plug>(coc-implementation)
 nmap <silent> <leader>rr <Plug>(coc-rename)
@@ -164,9 +167,12 @@ nnoremap <silent> <Leader>l :Lines<CR>
 " imap <silent><script><expr> <M-]> copilot#Accept("\<CR>")
 "  Copilot Chat
 lua << EOF
+require("copilot").setup({
+  suggestion = { enabled = true, auto_trigger = true },
+  panel = { enabled = false },
+})
 require("CopilotChat").setup ({
   debug = true, -- Enable debugging
   -- See Configuration section for rest
 })
 EOF
-
