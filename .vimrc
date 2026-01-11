@@ -1,7 +1,8 @@
 call plug#begin("~/.vim/plugged")
   " Themes
-  Plug 'morhetz/gruvbox'
+  " Plug 'morhetz/gruvbox'
   " Plug 'phanviet/vim-monokai-pro'
+  Plug 'joshdick/onedark.vim'
   " Navigation
   " -> NerdTree
   Plug 'scrooloose/nerdtree'
@@ -93,10 +94,11 @@ let NERDTreeShowHidden=1
 let NERDTreeQuitOnOpen=1
 
 " ------> Themes
-colorscheme gruvbox
+" colorscheme gruvbox
 " colorscheme morning
 " colorscheme sublimemonokai
 " colorscheme minimalis
+colorscheme onedark
 set termguicolors
 
 " ---> Prettier 
